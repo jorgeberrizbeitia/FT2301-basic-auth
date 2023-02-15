@@ -18,9 +18,10 @@ router.post("/signup", async (req, res, next) => {
 
   // .todos los campos debas estar completos
   if (username === "" || email === "" || password === "") {
-    res.render("auth/signup-form.hbs", {
+    res.status(401).render("auth/signup-form.hbs", {
       errorMessage: "Todos los campos deben estar llenos",
     });
+    // .todas las clausulas de guardia deberian tener un status de tipo 400 que acompañe.
     return; // return detiene la ejecución de la funcion
   }
 
@@ -116,8 +117,14 @@ router.post("/login", async (req, res, next) => {
       });
       return; // return detiene la ejecución de la funcion
     }
-  
+
+
+    // activar una sesión 
+    // continuamente verificar si el usuario tiene una sesión
+
+    // si todo esta correcto, entonces...
     // permitirle al usuario acceder a la pagina
+  
     // por ahora una prueba
     res.redirect("/profile");
 

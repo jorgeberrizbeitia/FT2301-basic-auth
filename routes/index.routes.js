@@ -12,5 +12,8 @@ router.use("/auth", authRoutes)
 
 // router.use("/auth", require("./auth.routes.js")) // sintaxis en una sola linea
 
+const profileRoutes = require("./profile.routes.js")
+router.use("/profile", profileRoutes)
+
 
 module.exports = router;
