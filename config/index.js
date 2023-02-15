@@ -41,15 +41,15 @@ module.exports = (app) => {
   app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
 
   app.use(session({
-    secret: "bananarama",
+    secret: process.env.SESSION_SECRET, // palabra secreta que encripta la cookie
     resave: false,
     saveUninitialized: false, // esto evita agregar sesiones vacias
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7 // en milisegundos (ejemplo de 7 días)
+      maxAge: 1000 * 60 * 60 * 24 * 7 // tiempo de duración de la cookie en milisegundos (ejemplo de 7 días)
     },
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/basic-auth",
-      ttl: 60 * 60 * 24 * 7 // en segundos (ejemplo de 7 días)
+      ttl: 60 * 60 * 24 * 7 // tiempo de duración de la sesión en segundos (ejemplo de 7 días)
     })
   }))
 

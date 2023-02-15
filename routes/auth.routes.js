@@ -121,18 +121,31 @@ router.post("/login", async (req, res, next) => {
 
     // activar una sesión 
     // continuamente verificar si el usuario tiene una sesión
+    req.session.activeUser = foundUser; // crea la sesión en la BD y envía la cookie (copia de sesión encriptada) al usuario
+    // automaticamente, en TODAS las rutas vamos a tener accedo a req.session.activeUser => siempre nos dará el usuario que hace la llamada
 
-    // si todo esta correcto, entonces...
-    // permitirle al usuario acceder a la pagina
-  
-    // por ahora una prueba
-    res.redirect("/profile");
-
+    req.session.save(() => {
+      // espera a que se haya creado la sesión en la DB correctamente y luego...
+      // si todo esta correcto, entonces...
+      // permitirle al usuario acceder a la pagina
+    
+      // por ahora una prueba
+      res.redirect("/profile");
+    })
 
   } catch(err) {
     next(err)
   }
 
 });
+
+// GET "/auth/logout" => cerrar/destruir la sesión del usuario
+router.get("/logout", (req, res, next) => {
+
+  req.session.destroy(() => {
+    res.redirect("/")
+  })
+
+})
 
 module.exports = router;
