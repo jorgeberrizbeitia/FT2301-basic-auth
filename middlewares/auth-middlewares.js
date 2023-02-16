@@ -15,6 +15,15 @@ const isAdmin = (req, res, next) => {
   }
 }
 
+// checkeo que el usuario sea de tipo user
+const isUser = (req, res, next) => {
+  if (req.session.activeUser.role === "user") {
+    next() // next sin argumentos significa continua con las rutas
+  } else {
+    res.redirect("/auth/login")
+  }
+}
+
 module.exports = {
   isLoggedIn: isLoggedIn,
   isAdmin: isAdmin
