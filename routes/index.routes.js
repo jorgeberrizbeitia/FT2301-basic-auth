@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+// ejecuta el middleware que actualiza las variables de si el usuario está logeado o no
+const { updateLocals } = require("../middlewares/auth-middlewares.js")
+router.use(updateLocals)
+
+
 /* GET home page */
 router.get("/", (req, res, next) => {
   res.render("index");

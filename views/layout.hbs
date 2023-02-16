@@ -13,10 +13,16 @@
 
       <nav>
          <a href="/">Home</a>
-         <a href="/auth/signup">Registro</a>
-         <a href="/auth/login">Acceso</a>
-         <a href="/profile">Perfil privado</a>
-         <a href="/auth/logout">Cerrar sesión</a>
+
+         {{#if isUserActive}}
+            <a href="/profile">Perfil privado</a>
+            <a href="/auth/logout">Cerrar sesión</a>
+         {{else}}
+            <a href="/auth/signup">Registro</a>
+            <a href="/auth/login">Acceso</a>
+         {{/if}}
+
+
       </nav>
 
       {{{body}}}
